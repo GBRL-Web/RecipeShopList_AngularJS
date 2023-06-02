@@ -1,0 +1,7 @@
+<a class="list-group-item clearfix" style="cursor: pointer;" [routerLink]="[id]" routerLinkActive="active">
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ (recipe.description.length > 20) ? (recipe.description | slice:0:20)+"..." : recipe.description }}</p>
+    </div>
+    <span class="pull-right"><img [src]="recipe.image" alt="{{ recipe.description}}" class="img-responsive" style="max-height: 50px;"></span>
+</a>
