@@ -6,14 +6,7 @@ export class ShopService {
     Ingredient[]
   >();
 
-  private ingredients: Ingredient[] = [
-    new Ingredient('Bread', 1, 'kg'),
-    new Ingredient('Cheese', 1, 'kg'),
-    new Ingredient('Milk', 1, 'kg'),
-    new Ingredient('Eggs', 1, 'kg'),
-    new Ingredient('Butter', 1, 'kg'),
-    new Ingredient('Sugar', 1, 'kg'),
-  ];
+  private ingredients: Ingredient[] = [];
 
   getIngredients(): Ingredient[] {
     return this.ingredients.slice();
