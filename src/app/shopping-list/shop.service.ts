@@ -3,11 +3,14 @@ import { Ingredient } from '../shared/models/ingredient.model';
 import { Subject } from 'rxjs';
 
 export class ShopService {
-  ingredientsChange: Subject<Ingredient[]> = new Subject<
-    Ingredient[]
-  >();
+  ingredientsChange: Subject<Ingredient[]> = new Subject<Ingredient[]>();
+  startedEditing: Subject<number> = new Subject<number>();
 
   private ingredients: Ingredient[] = [];
+
+  getIngredient(id: number): Ingredient {
+    return this.ingredients[id];
+  }
 
   getIngredients(): Ingredient[] {
     return this.ingredients.slice();

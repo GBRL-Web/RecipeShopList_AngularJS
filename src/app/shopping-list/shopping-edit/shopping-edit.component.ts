@@ -1,6 +1,8 @@
+import { Subscription } from 'rxjs';
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { ShopService } from '../shop.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -8,16 +10,24 @@ import { ShopService } from '../shop.service';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent {
-  @ViewChild('nameInput') nameInputRef!: ElementRef;
-  @ViewChild('amountInput') amountInputRef!: ElementRef;
-  @ViewChild('unitInput') unitInputRef!: ElementRef;
-
+@ViewChild('f') slForm!: NgForm;
+subscription!: Subscription;
+editMode: boolean = false;
+editedItemIndex!: number;
+editedItem!: Ingredient; 
   constructor(private shopService: ShopService) {}
 
-  addNewIngredient() { 
-    const name = this.nameInputRef.nativeElement.value;
-    const amount = this.amountInputRef.nativeElement.value;
-    const unit = this.unitInputRef.nativeElement.value;
-    this.shopService.addIngredient(new Ingredient(name, amount, unit));
+  ngOnInit() {
+    this.subscription = this.shopService.startedEditing.subscribe((index: number) => {
+      this.editedItemIndex = index;
+      this.editMode = true;
+      this.editedItem = this.shopService.getIngredient(index);
+    });
+  }
+
+  addNewIngredient(form : NgForm) { 
+    const value = form.value;
+    console.log(form);
+    this.shopService.addIngredient(new Ingredient(value.name, value.amount, value.unit));
   }
 }

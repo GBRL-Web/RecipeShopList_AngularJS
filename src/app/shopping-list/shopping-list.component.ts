@@ -6,21 +6,27 @@ import { ShopService } from './shop.service';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css'],
-  providers: []
+  providers: [],
 })
 export class ShoppingListComponent {
-ingredients: Ingredient[] = [];
+  ingredients: Ingredient[] = [];
 
-constructor(private shopService: ShopService) {}
+  constructor(private shopService: ShopService) {}
 
-ngOnInit() {
-  this.ingredients = this.shopService.getIngredients();
-  this.shopService.ingredientsChange.subscribe((ingredients: Ingredient[]) => {
-    this.ingredients = ingredients;
-  });
-}
+  ngOnInit() {
+    this.ingredients = this.shopService.getIngredients();
+    this.shopService.ingredientsChange.subscribe(
+      (ingredients: Ingredient[]) => {
+        this.ingredients = ingredients;
+      }
+    );
+  }
 
-onIngredientAdded(ingredient: Ingredient) {
-  this.shopService.addIngredient(ingredient);
-}
+  onIngredientAdded(ingredient: Ingredient) {
+    this.shopService.addIngredient(ingredient);
+  }
+
+  onEditIngredient(index: number) {
+  
+  }
 }
